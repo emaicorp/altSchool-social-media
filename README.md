@@ -1,6 +1,3 @@
-# altSchool-social-media
-A Social media Backend code that handles full CRUD operation for a social media platform 
-
 # Backend for a Social Brand, Based on AltSchool Project. 
 
 ## Project Title :
