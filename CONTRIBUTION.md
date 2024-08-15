@@ -53,19 +53,29 @@ If you have an idea for a new feature, please open an issue on [GitHub Issues](h
 #### Development Workflow
 
 1. Create a new branch for your work:
+
+    Note: <> is note part of the git commands.
+    For the sake of this lesson, lets call our branch name `new-branch` and the change we made `bug-fix`.
    ```sh
-   git checkout -b feat/HNG-2145-your-feature-name
+   <git branch new-brach
+   Creates a branch so named
+   ```  
+   ```sh
+   <git checkout new-brach>
+   switches to the newly created branch.
    ```
+   
    ##### Branch Naming Rules
-   - You will likely work on features, bug fixes, refactors (restructuring code without changing functionality), chores on the repo (routine tasks such as updating dependencies or changing configurations), or documentation. Each of the type of update should be used as a prefix your branch name as `feat/`, `refactor/`, `fix/`, `chore/`, or `docs/`
-   - For any of these updates, you will likely use a ticket or an issue. The ticket number, e.g. HNG-2145 or issue number should also be included in your branch name
+   - You will likely work on features, bug fixes, refactors (restructuring code without changing functionality), chores on the repo (routine tasks such as updating dependencies or changing configurations), or documentation. Each of the type of update should be used as a prefix your branch name as `feat`, `refactor`, `fix`, `chore`, or `docs`
+   - For any of these updates, you will likely use a ticket or an issue. The ticket number, e.g. HNG-1234 or issue number should also be included in your branch name
    - Finally, a short description for your update should follow suit. This is often taken from the ticket title
    - All of this (except the ticket number acronym, `HNG`) should be written in lowercase
      > Thus, a typical branch should look like `feat/HNG-1234-create-login-page` or like `chore/remove-unused-variables` if your update has no corresponding ticket or issue (unlikely)
 2. Make your changes, and commit them with descriptive messages:
 
    ```sh
-   git commit -m "feat: your commit message"
+   git add .
+   git commit -m "bug-fix"
    ```
 
    ##### Commit Message Rules
@@ -78,7 +88,7 @@ If you have an idea for a new feature, please open an issue on [GitHub Issues](h
 
 3. Push your branch to your forked repository:
    ```sh
-   git push origin <your-branch>
+   git push origin <bug-fix>
    ```
 
 #### Submitting Pull Requests
@@ -87,7 +97,7 @@ If you have an idea for a new feature, please open an issue on [GitHub Issues](h
    ```sh
    git checkout main
    git pull origin main
-   git checkout <your-branch>
+   git checkout <bug-fix>
    git rebase main
    ```
    > You should regularly update your remote repository with changes from the [default branch of the] upstream repository
