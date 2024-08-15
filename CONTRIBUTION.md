@@ -76,6 +76,7 @@ If you have an idea for a new feature, please open an issue on [GitHub Issues](h
    ```sh
    git add .
    git commit -m "bug-fix"
+   commits the change made to the current branch.
    ```
 
    ##### Commit Message Rules
