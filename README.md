@@ -46,8 +46,8 @@ Build a Functional Endpoint for a Social Media Brand
 ## Installation
 
 ### Prerequisites 
-- npm >= (insert version) 
-- Node.js >=(insert version) ✳️
+- npm >= 1.1
+- Node.js >= 17.0 ✳️
 - Postman 
 - mongoDB 
 
