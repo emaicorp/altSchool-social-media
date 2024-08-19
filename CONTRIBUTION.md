@@ -53,32 +53,43 @@ If you have an idea for a new feature, please open an issue on [GitHub Issues](h
 #### Development Workflow
 
 1. Create a new branch for your work:
+
+    Note: <> is note part of the git commands.
+    For the sake of this lesson, always use your name as the created branch e.g `chiwetalu-henry` and the change we made `bug-fix`.
    ```sh
-   git checkout -b feat/HNG-2145-your-feature-name
+   <git branch `your-name`>
+   Creates a branch so named
+   ```  
+   ```sh
+   <git checkout `your-name`>
+   switches to the newly created branch.
    ```
+   
    ##### Branch Naming Rules
-   - You will likely work on features, bug fixes, refactors (restructuring code without changing functionality), chores on the repo (routine tasks such as updating dependencies or changing configurations), or documentation. Each of the type of update should be used as a prefix your branch name as `feat/`, `refactor/`, `fix/`, `chore/`, or `docs/`
-   - For any of these updates, you will likely use a ticket or an issue. The ticket number, e.g. HNG-2145 or issue number should also be included in your branch name
+   - You will likely work on features, bug fixes, refactors (restructuring code without changing functionality), chores on the repo (routine tasks such as updating dependencies or changing configurations), or documentation. For each of the type of updates, always use your name as the branch name.
+   - For any of these updates, you will likely use a ticket or an issue. The ticket number, e.g. HNG-1234 or issue number should also be included in your branch name
    - Finally, a short description for your update should follow suit. This is often taken from the ticket title
    - All of this (except the ticket number acronym, `HNG`) should be written in lowercase
-     > Thus, a typical branch should look like `feat/HNG-1234-create-login-page` or like `chore/remove-unused-variables` if your update has no corresponding ticket or issue (unlikely)
+     > Thus, a typical branch should look like `name-HNG-1234` or like `name` if your update has no corresponding ticket or issue (unlikely)
 2. Make your changes, and commit them with descriptive messages:
 
    ```sh
-   git commit -m "feat: your commit message"
+   git add .
+   git commit -m "bug fix"
+   commits the change made to the current branch.
    ```
 
    ##### Commit Message Rules
 
-   Commit messages also follow a similar pattern. However, there is no need to add ticket number since they can be easily tracked given the branch name. Instead, use a colon, `:`, after the type of change (`feat`, `fix`, etc.), a whitespace, then your commit message. In cases where you are required to add the ticket number, you may use a the parenthesis after the type of change, like `feat(HNG-1234): your commit message`
+   Commit messages also follow a pattern about the changes done. However, there is no need to add ticket number since they can be easily tracked given the branch name. Instead, use a colon, `:`, after the type of change (`new feat`, `fix bug`, etc.), a whitespace, then your commit message. In cases where you are required to add the ticket number, you may use a the parenthesis after the type of change, like `new feat: your commit message`
 
-   > Another example: `refactor: use a single state for formData` or `refactor(HNG-1234): use a single state for formData`
+   > Another example: `fix login issue: use a single state for formData` or `bug fix: use a single state for formData`
 
 > Please notice how both branch names and commit messages use the imperative tense. The imperative tense is a command or request, which makes it clear what the commit does. i.e., "fix login issue", NOT "I fixed login issue", and NOT "fixed login issue"
 
 3. Push your branch to your forked repository:
    ```sh
-   git push origin <your-branch>
+   git push origin <bug-fix>
    ```
 
 #### Submitting Pull Requests
@@ -87,7 +98,7 @@ If you have an idea for a new feature, please open an issue on [GitHub Issues](h
    ```sh
    git checkout main
    git pull origin main
-   git checkout <your-branch>
+   git checkout <name>
    git rebase main
    ```
    > You should regularly update your remote repository with changes from the [default branch of the] upstream repository
