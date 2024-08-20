@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const schema = Joi.object({
+const createUserSchema = Joi.object({
     username: Joi.string()
         .alphanum()
         .min(3)
@@ -26,4 +26,4 @@ const schema = Joi.object({
         .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
 })
 
-modules.exports = schema ;
+modules.exports = {createUserSchema} ;
