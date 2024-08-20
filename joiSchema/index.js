@@ -25,20 +25,5 @@ const schema = Joi.object({
     email: Joi.string()
         .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } })
 })
-    .with('username', 'birth_year')
-    .xor('password', 'access_token')
-    .with('password', 'repeat_password');
 
-
-schema.validate({ username: 'abc', birth_year: 1994 });
-// -> { value: { username: 'abc', birth_year: 1994 } }
-
-schema.validate({});
-// -> { value: {}, error: '"username" is required' }
-
-// Also -
-
-try {
-    const value = await schema.validateAsync({ username: 'john', birth_year: 2000 });
-}
-catch (err) { }
+modules.exports = schema ;
