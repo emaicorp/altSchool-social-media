@@ -1,5 +1,4 @@
-
-const userModel = require('../schema/user.schema');
+=const userModel = require('../schema/user.schema');
 
 class UserServices {
     async createUser(userInfo){
