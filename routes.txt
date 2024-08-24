@@ -1,0 +1,29 @@
+#### These are the routes and their various endpoints please refer to this file to help you with your code #####
+
+
+USER ROUTE
+create 
+update
+delete
+read
+
+AUTH
+auth_token
+
+EMAIL VERIFICATION ROUTE
+verify_email
+
+PASSWORD RESET ROUTE
+password_reset
+
+POST ROUTE
+create 
+update
+delete
+read
+
+LIKES ROUTE 
+LIKES
+
+COMMENTS ROUTE
+comments
