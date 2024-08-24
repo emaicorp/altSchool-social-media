@@ -67,10 +67,10 @@ If you have an idea for a new feature, please open an issue on [GitHub Issues](h
    
    ##### Branch Naming Rules
    - You will likely work on features, bug fixes, refactors (restructuring code without changing functionality), chores on the repo (routine tasks such as updating dependencies or changing configurations), or documentation. For each of the type of updates, always use your name as the branch name.
-   - For any of these updates, you will likely use a ticket or an issue. The ticket number, e.g. HNG-1234 or issue number should also be included in your branch name
+   - For any of these updates, you will likely use a ticket or an issue. The ticket number, e.g. your_name-1234 or issue number should also be included in your branch name
    - Finally, a short description for your update should follow suit. This is often taken from the ticket title
    - All of this (except the ticket number acronym, `HNG`) should be written in lowercase
-     > Thus, a typical branch should look like `name-HNG-1234` or like `name` if your update has no corresponding ticket or issue (unlikely)
+     > Thus, a typical branch should look like `/your_name-1234` or like `your_name` if your update has no corresponding ticket or issue (unlikely)
 2. Make your changes, and commit them with descriptive messages:
 
    ```sh
