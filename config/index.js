@@ -1,7 +1,9 @@
 // Load environment variables from .env file
 require('dotenv').config();
 
+
 configVariables= {
+
   port: process.env.PORT || 5000,
   mongoURI: process.env.MONGO_URI,
   jwtSecret: process.env.JWT_SECRET,
@@ -9,3 +11,4 @@ configVariables= {
 };
 
 modules.exports = configVariables;
+
