@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const configVariables = require('./index');
 
 const mongoDBConnection = () => {
-    mongoose.connect(configVariables.MONGO_URL)
+    mongoose.connect(process.env.MONGO_URL)
     .then(()=>{
         console.log("MONGOOSE CONNECTION SUCCESSFUL")
     })

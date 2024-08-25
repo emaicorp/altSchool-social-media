@@ -6,20 +6,20 @@ const userSchema = new mongoose.Schema({
 		required: true,
 		unique: true
 	},
-	email :{
+	email:{
 		type: String,
 		required: true,
 		unique: true
 	},
-	password_hash:{
+	password:{
 		type: String,
 		required: true
 	},
-	first_name:{
+	firstName:{
 		type: String,
 		required: true
 	},
-	last_name:{
+	lastName:{
 		type: String,
 		required: true
 	},
@@ -28,33 +28,35 @@ const userSchema = new mongoose.Schema({
 		default : null,
 		required: false
 	},
-	profile_picture_url:{
+	profilePictureUrl:{
 		type: String,
 		default : null,
 		required: false
 	},
-	email_verified :{
+	emailVerified:{
 		type: Boolean,
 		default : false,
 		required: false
 	},
-	verification_token:{
+	verificationToken:{
 		type: String,
 		default : null,
 		required: false
 	},
-	password_reset_token : {
+	passwordResetToken:{
 		type: String,
 		default : null,
 		required: false
 	},
-	created_at : {
+	createdAt:{
 		type: Date,
 		default: Date.now()
+	},
+	updatedAt: {
+		type: Date,
+        default: Date.now()
 	}
 	
-
-
 });
 
 
