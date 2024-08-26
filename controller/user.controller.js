@@ -1,27 +1,28 @@
 const userInstance = require('../services/user.services');
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require('../utils/cloudinary')
 const BadRequest = require('../error/error');
-const hashedPassword = require('../utils/bcrypt');
-const comparePassword = require('../utils/bcrypt');
+const {hashPassword} = require('../utils/bcrypt');
+const {comparePassword} = require('../utils/bcrypt');
 const generateToken = require('../utils/generateToken');
 const sendVerificationMessage = require('../utils/nodemailer');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const fs = require('fs');
 
 class UserController {
     async createUser(req, res, next) {
         try{
             const {username, email, password, firstName, lastName,} = req.body;
             
-            const checkForUsername = await userInstance.checkForUsername(username);
+            const checkForUsername = await userInstance.findUserByUsername(username);
             if(checkForUsername) throw new BadRequest('Username already exists')
             
-            const checkForEmail = await userInstance.checkForEmail(email);
+            const checkForEmail = await userInstance.findUserByEmail(email);
             if(checkForEmail)  throw new BadRequest('Email already exists')
             
             const userInfo = {
                 username,
                 email,
-                password: await hashedPassword(password),
+                password: await hashPassword(password),
                 firstName,
                 lastName,
             }
@@ -32,9 +33,9 @@ class UserController {
 
             // Send verification email
             const token = jwt.sign({email, OTP},process.env.JwtSecret, {expiresIn: '12h'} );
-            const link =`https://your-domain.com/verify-email?token=${token}`;
+            const link = `http://localhost:8000/api/verify-email?token=${token}`;
 
-            sendVerificationMessage(email, link);
+            sendVerificationMessage(email, link, firstName);
             const saveToken = await userInstance.addVerificationToken(newUser._id,token);
 
             res.status(201).json({message: 'User created successfully',success: true,})
@@ -53,7 +54,8 @@ class UserController {
             const foundUser = await userInstance.findUserByEmail(email);
             if(!foundUser) throw new BadRequest('User not found');
 
-            if(foundUser.verificationToken !== OTP) throw new BadRequest(' verification token is incorrect');
+            const confirm = jwt.verify(foundUser.verificationToken, process.env.JwtSecret);
+            if(confirm.OTP !== OTP) throw new BadRequest(' verification token is incorrect');
             const updatedUser = await userInstance.verifyEmail(email);
 
             res.json({message: 'Email verified successfully', success: true,})
@@ -71,17 +73,16 @@ class UserController {
             const startIndex = (page - 1) * limit;
     
             // Get the total number of users
-            const totalUsers = await userInstance.countDocuments(); // Assuming you have a count method
+            const totalUsers = await userInstance.findAlluser(); 
             if (totalUsers === 0) throw new BadRequest('No users found');
     
-            // Get the users for the current page
-            const allUsers = await userInstance.findAlluser().skip(startIndex).limit(limit);
+            const users = await userInstance.findAlluser();
+            const paginatedUsers = users.slice(startIndex, startIndex + limit);
     
             res.json({
-                users: allUsers,
+                users: paginatedUsers,
                 page,
                 totalPages: Math.ceil(totalUsers / limit),
-                totalUsers,
                 success: true,
             });
         } catch (error) {
@@ -92,7 +93,7 @@ class UserController {
     async getUserById(req, res, next) {
         try{
              const id = req.params.id;
-             const foundUser = await userInstance.findOneUser(id);
+             const foundUser = await userInstance.findOneuser(id);
 
              if(!foundUser) throw new BadRequest('User not found')
              res.json({user: foundUser, success: true,})
@@ -103,8 +104,9 @@ class UserController {
 
     async updateAUserBio(req, res, next){
         try{
-             const {id,bio} = req.body;
-
+             const {bio} = req.body;
+             const {id} = req.params;
+        
              const updatedUser = await userInstance.updateUserBio(id, bio);
 
              if(!updatedUser) throw new BadRequest('User not found')
@@ -120,12 +122,13 @@ class UserController {
         
             if(!file) throw new BadRequest(' cannot find profile picture');
 
-            const foundUser = await userInstance.findOneUser(id);
+            const foundUser = await userInstance.findOneuser(id);
             if(!foundUser) throw new BadRequest(' cannot find user');
 
             const uploadResult = await cloudinary.uploader.upload(file.path, { folder: 'user_pictures' });
             if(!uploadResult) throw new BadRequest(' cannot upload profile picture');
 
+            fs.unlinkSync(file.path); // Delete the temporary uploaded file
             const updatedUser = await userInstance.updateUserProfilePicture(id, uploadResult.secure_url);
 
             res.json({user: updatedUser, success: true,})
@@ -156,7 +159,7 @@ class UserController {
              const isPasswordValid = await  comparePassword(oldPassword, foundUser.password);
              if(isPasswordValid) throw new BadRequest('please try a new password');
 
-             const hashedPassword= await hashedPassword(newPassword);
+             const hashedPassword= await hashPassword(newPassword);
  
              const updatedUser = await userInstance.updatePassword(email, hashedPassword);
              res.json({user: updatedUser, success: true,})
@@ -190,10 +193,10 @@ class UserController {
             }
     
             // Generate the authentication token
-            const token = generateToken({ foundUser });
+            const token = jwt.sign({ foundUser }, process.env.JwtSecret, {expiresIn: '12h'});
     
             // Respond with the token
-            res.json({ token, success: true });
+            res.json({ message:'user logged in successfully',token, success: true });
         } catch (error) {
             next(error);
         }

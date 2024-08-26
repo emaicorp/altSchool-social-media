@@ -21,3 +21,5 @@ const comparePassword = async(password, hashedPassword) => {
         throw new Error('Failed to compare password');
     }
 }
+
+module.exports = { hashPassword, comparePassword };

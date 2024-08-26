@@ -17,6 +17,12 @@ const decodedToken = require('./decypt');
                 success: false
             });
         }
+        if(user.emailVerified === false){
+            return res.status(403).json({
+                message: 'Email not verified',
+                success: false
+            });
+        }
         req.user = user;
         next();  
     }catch(error){

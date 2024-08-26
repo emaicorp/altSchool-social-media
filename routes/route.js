@@ -2,19 +2,19 @@ const express = require('express');
 const router = express.Router();
 const upload = require('../utils/multer');
 const validator = require('../middleware/validator');
-const createUserSchema = require('../joiSchema/user.joi');
-const updateUserBioSchema = require('../joiSchema/user.joi');
-const idSchema = require('../joiSchema/user.joi');
-const login = require('../joiSchema/user.joi');
-const updatePasswordSchema = require('../joiSchema/user.joi');
+const {createUserSchema} = require('../joiSchema/user.joi');
+const {updateUserBioSchema} = require('../joiSchema/user.joi');
+const {idSchema} = require('../joiSchema/user.joi');
+const {login} = require('../joiSchema/user.joi');
+const {updatePasswordSchema} = require('../joiSchema/user.joi');
 const postController = require('../controller/post.controller');
 const userController = require('../controller/user.controller');
 const likeController = require('../controller/likes.controller');
 const commentController = require('../controller/comment.controller');
-const createPostSchema = require('../joiSchema/post.joi')
-const createCommentSchema = require('../joiSchema/comment.joi');
-const updateCommentSchema = require('../joiSchema/comment.joi');
-const deleteCommentSchema = require('../joiSchema/comment.joi');
+const {createPostSchema} = require('../joiSchema/post.joi')
+const {createCommentSchema} = require('../joiSchema/comment.joi');
+const {updateCommentSchema} = require('../joiSchema/comment.joi');
+const {deleteCommentSchema} = require('../joiSchema/comment.joi');
 const postId = require('../joiSchema/like.joi')
 
 // middleware for authentication
@@ -31,11 +31,11 @@ router.get('/posts/user/:id', authorization,[validator(idSchema, 'params')],post
 router.post('/users', [validator(createUserSchema)],userController.createUser);
 router.post('/users/login', [validator(login)],userController.login);
 router.get('/users/:id', [validator(idSchema, 'params')],userController.getUserById);
-router.patch('/users/:id', [validator(idSchema)],upload.single('file'),userController.updateUserProfilePicture);
-router.put('/users/bio/:id', [validator(updateUserBioSchema)], userController.updateAUserBio);
-router.put('/users/password/:id',[validator(updatePasswordSchema)] ,userController.updatePassword);
-router.get('/users/verification/:token', userController.verifyUserEmail);
-router.get('/users/all', userController.getAllUsers)
+router.patch('/users/:id', [validator(idSchema, 'params')],upload.single('file'),userController.updateUserProfilePicture);
+router.patch('/users/bio/:id', [validator(updateUserBioSchema)], userController.updateAUserBio);
+router.patch('/users/password/:id',[validator(updatePasswordSchema)] ,userController.updatePassword);
+router.get('/verify-email', userController.verifyUserEmail);
+router.get('/usersAll', userController.getAllUsers)
 router.delete('/users/:id', [validator(idSchema,'params')],userController.deleteUser);
 
 router.get('/likes', authorization,[validator(postId,'params')],likeController.createLike);

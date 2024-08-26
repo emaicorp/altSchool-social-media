@@ -3,9 +3,13 @@ const path = require('path');
 const fs = require('fs/promises');
 const { fileURLToPath } = require('url'); 
 const htmlFilePath = path.join(__dirname, '../html', 'verification.html');
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.ethereal.email",
+  host: "smtp.gmail.com",
   port: 587,
   secure: false, // Use `true` for port 465, `false` for all other ports
   auth: {
@@ -27,7 +31,7 @@ const message = async(link,username) => {
 }
 const sendVerificationMessage = async(email, link, username) =>{
     try{
-        await transporter.sendMail({
+     const info = await transporter.sendMail({
             from: process.env.googleUsername,
             to: email,
             subject: "Email Verification",

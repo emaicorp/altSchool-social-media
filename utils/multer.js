@@ -1,6 +1,8 @@
 const multer = require('multer');
-const cloudinary = require('cloudinary').v2;
 const path = require('path');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 // Set storage engine
 const storage = multer.diskStorage({
@@ -35,8 +37,5 @@ function checkFileType(file, cb) {
     }
 }
 
-cloudinary.config({
-    cloudinary_url: process.env.CLOUDINARY_URL
- });
-
 module.exports = upload;
+

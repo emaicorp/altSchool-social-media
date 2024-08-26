@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const app = require("./app");
+const PORT = process.env.PORT || 8000
 
-
-app.listen(6000, () => {
-	console.log("APP LISTENING WELL ON 5000");
+app.listen(PORT, () => {
+	console.log(`APP LISTENING ON PORT ${PORT}`);
 });
