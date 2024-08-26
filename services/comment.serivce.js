@@ -12,7 +12,8 @@ class CommentService {
 
     async getCommentsByPost(postId) {
         try{
-            return commentModel.find({ postId }).populate('userId', 'username');
+            const comment =  await commentModel.find({ postId })
+            return comment;
         }catch(error){
             throw new Error('Error getting comments by post');
         }

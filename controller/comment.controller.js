@@ -1,16 +1,18 @@
 const commentService = require('../services/comment.serivce');
+const decryptToken = require('../authenticate/decypt');
+const BadRequest = require('../error/error');
 
 class CommentController {
     async createComment(req, res, next) {
         try {
             const { postId, commentText } = req.body;
 
-            const user = decryptToken(req);
+            const user = await decryptToken(req);
             if (user === 'No token provided') throw new BadRequest('No token provided');
             if (user === 'TokenExpiredError') throw new BadRequest('Token has expired, please login again');
             if (user === 'Invalid token') throw new BadRequest('Invalid token, please try again');
             
-            await commentService.createComment(user.id, postId, commentText);
+            await commentService.createComment(user.foundUser._id, postId, commentText);
             res.status(201).json({ message: 'Comment created successfully' });
         } catch (error) {
             next(error);
@@ -19,7 +21,7 @@ class CommentController {
 
     async getCommentsByPost(req, res, next) {
         try {
-            const { postId } = req.params;
+            const  postId  = req.params.id;
             const comments = await commentService.getCommentsByPost(postId);
             res.json(comments);
         } catch (error) {

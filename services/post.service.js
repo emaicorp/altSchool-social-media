@@ -6,7 +6,8 @@ class PostService {
         const newPost = new postModel({ userId, content, imageUrl });
         return await newPost.save();
        }catch(error){
-         throw new Error('Error creating post');
+        console.log(error);
+         throw new Error('Error creating post', error);
        }
     }
 
@@ -54,9 +55,12 @@ class PostService {
         try{
          return await postModel.find({ userId }).populate('userId', 'username');
         }catch(error){
+          console.log(error);
           throw new Error('Error getting posts by user');
         }
     }
 }
 
 const postInstance = new PostService();
+
+module.exports = postInstance;
