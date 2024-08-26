@@ -5,7 +5,7 @@ const decryptToken = async (req) => {
         const token = req.headers.authorization?.split(' ')[1];
         if (!token) return ('No token provided');
 
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        const decodedToken = jwt.verify(token,process.env.JwtSecret);
         return  decodedToken;
     } catch (error) {
         // Check if the error is related to token expiration
@@ -13,6 +13,7 @@ const decryptToken = async (req) => {
             return('Token has expired');
         }
         // For other errors (e.g., invalid signature, malformed token)
+        console.log(error)
         return('Invalid token');
     }
 }

@@ -21,12 +21,12 @@ const postId = require('../joiSchema/like.joi')
 const authorization = require('../authenticate/verifytoken')
 
 
-router.post('/posts', authorization,[validator(createPostSchema)],upload.single('file'), postController.createPost);
-router.get('/posts', authorization,postController.getAllPosts);
+router.post('/posts', authorization,upload.single('file'),[validator(createPostSchema)], postController.createPost);
+router.get('/all/post', authorization,postController.getAllPosts);
 router.get('/posts/:id',authorization, [validator(idSchema, 'params')],postController.getPostById);
 router.delete('/posts/:id', authorization,[validator(idSchema, 'params')],postController.deletePost);
-router.put('/posts/:id', authorization,upload.single('file'), postController.updatePost);
-router.get('/posts/user/:id', authorization,[validator(idSchema, 'params')],postController.getPostsByUser);
+router.patch('/posts/:id', authorization,upload.single('file'), [validator(idSchema,'params')],postController.updatePost);
+router.get('/post/user', authorization,postController.getPostsByUser);
 
 router.post('/users', [validator(createUserSchema)],userController.createUser);
 router.post('/users/login', [validator(login)],userController.login);
@@ -38,12 +38,12 @@ router.get('/verify-email', userController.verifyUserEmail);
 router.get('/usersAll', userController.getAllUsers)
 router.delete('/users/:id', [validator(idSchema,'params')],userController.deleteUser);
 
-router.get('/likes', authorization,[validator(postId,'params')],likeController.createLike);
-router.get('/likes/number', authorization,likeController.getLikesNumber);
+router.post('/likes', authorization,[validator(postId)],likeController.createLike);
+router.get('/likes/number/:id', authorization,likeController.getLikesNumber);
 
 
 router.post('/comments', authorization,[validator(createCommentSchema)],commentController.createComment);
-router.get('/comments/:postId', authorization,commentController.getCommentsByPost);
+router.get('/comments/:id', authorization,commentController.getCommentsByPost);
 router.delete('/comments/:commentId', authorization,[validator(deleteCommentSchema)],commentController.deleteComment);
 router.put('/comments/:commentId', authorization,[validator(updateCommentSchema)],commentController.updateComment);
 
