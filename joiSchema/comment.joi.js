@@ -1,22 +1,25 @@
 const joi = require("joi");
 
 const createCommentSchema = joi.object({
-  comment_text : joi.string().required(),
-  user_id: joi.string().required(),
-  post_id : joi.string().required()
+  commentText : joi.string().required().messages({
+    "string.required": "Comment text is required"
+  }),
+  postId : joi.string().required().messages({
+    "string.required": "Post id is required"
+  })
 })
 const updateCommentSchema = joi.object({
-  comment_text : joi.string().required(),
-  comment_id: joi.string().required(),
-  post_id : joi.string().required()
+  commentId: joi.string().required().messages({
+    "string.required": "Comment id is required"
+  }),
+  commentText : joi.string().required().messages({
+    "string.required": "Comment text is required"
+  })
 })
 const deleteCommentSchema = joi.object({
-  comment_id: joi.string().required(),
-  post_id : joi.string().required()
-})
-const readCommentSchema = joi.object({
-  comment_id: joi.string().required(),
-  post_id : joi.string().required()
+  commentId: joi.string().required(),
+  
 })
 
-modules.exports = {createCommentSchema,updateCommentSchema,deleteCommentSchema,readCommentSchema}
+
+module.exports = {createCommentSchema,updateCommentSchema,deleteCommentSchema,}

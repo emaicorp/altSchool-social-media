@@ -1,15 +1,15 @@
 const mongoose = require("mongoose");
 
 const likeSchema = new mongoose.Schema({
-	user_id: {
+	userId: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Users"
 	},
-	post_id: {
+	postId: {
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Posts"
 	},
-	created_at: {
+	createdAt: {
 		type: Date,
 		default: Date.now
 	}
