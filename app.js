@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
+const mongoDBConnection = require('./config/db.config');
 
+mongoDBConnection();
 
 app.use(express.json());
 
