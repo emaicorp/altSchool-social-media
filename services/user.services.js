@@ -1,30 +1,95 @@
-=const userModel = require('../schema/user.schema');
+const userModel = require('../schema/user.schema');
+
 
 class UserServices {
     async createUser(userInfo){
-        const newUser = new userModel(userInfo);
-        const saveUser = await newUser.save();
-        return saveUser;
+       try{
+            const newUser = new userModel(userInfo);
+            const saveUser = await newUser.save();
+            return saveUser;
+       }catch(error){
+        console.log(error);
+       }
     }
     async findAlluser(){
-        const allUsers = await userModel.find();
-        return allUsers;
+        try{
+            const allUsers = await userModel.find();
+            return allUsers;
+        }catch(error){
+            console.log(error);
+        }
     }
     async findOneuser(id){
-        const foundUser =  await userModel.findOne({_id:id});
-        return foundUser;
+       try{
+            const foundUser =  await userModel.findOne({_id:id});
+            return foundUser;
+       }catch(error){
+        console.log(error);
+       }
     }
     async findUserByUsername(username){
-        const foundUser = await userModel.findOne({username: username});
-        return foundUser;
+        try{
+            const foundUser = await userModel.findOne({username: username});
+            return foundUser;
+        }catch(error){
+            console.log(error);
+        }
     }
-    async updateUser(id, userInfo){
-        const updateUser = await userModel.findOneAndUpdate ({_id :id}, userInfo, {new:true});
-        return updateUser;
+    async updateUserBio(id, Bio){
+       try{
+            const updatedUser = await userModel.findByIdAndUpdate(id, {bio:Bio},{new: true});
+            return updatedUser;
+       }catch(error){
+        console.log(error);
+       }
+    }
+    async updateUserProfilePicture(id, ProfilePicture){
+        try{
+            const updatedUser = await userModel.findByIdAndUpdate(id, {profilePictureUrl: ProfilePicture},{new: true});
+            return updatedUser;
+        }catch(error){
+            console.log(error);
+        }
     }
     async deleteUser(id){
-        const deleteUser = await userModel.findOneAndDelete({_id:id});
-        return deleteUser;
+        try{
+            const deleteUser = await userModel.findOneAndDelete({_id:id});
+            return deleteUser;
+        }catch(error){
+            console.log(error);
+        }
+    }
+    async findUserByEmail(email){
+        try{
+            const foundUser = await userModel.findOne({email: email});
+            return foundUser;
+        }catch(error){
+            console.log(error);
+        }
+    }
+    async verifyEmail(email){
+        try{
+            const foundUser = await userModel.findOneAndUpdate({email: email}, {emailVerified: true},{new: true});
+            return foundUser;
+        }catch(error){
+            console.log(error);
+        }
+    }
+    async addVerificationToken (id,token){
+        try{
+            const updatedUser = await userModel.findOneAndUpdate({_id:id}, {verificationToken: token},{new: true});
+            return updatedUser;
+        }catch(error){
+            console.log(error);
+        }
+    }
+    async updatePassword(email,password){
+        try{
+            const updatedUser = await userModel.findOneAndUpdate({email: email}, {password: password},{new: true});
+            return updatedUser;
+        }catch(error){
+            console.log(error);
+        }
     }
 };
 

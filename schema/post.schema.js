@@ -6,18 +6,22 @@ const postSchema = new mongoose.Schema({
 		ref: "Users",
 		required: true
 	},
-	content: {
+	content:{
 		type: String,
 		required: true
 	},
-	image_url :{
+	imageUrl:{
 		type: String,
 		required: false,
 		default : null
 	},
-	created_at: {
+	createdAt:{
 		type: Date,
 		default: Date.now
+	},
+	updatedAt:{
+		type: Date,
+        default: Date.now
 	}
 });
 
