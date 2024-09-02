@@ -64,9 +64,11 @@ Use the npm command to install Node.js packages.
 ### Environment Variables :
 Create a `.env ` file in the root directory and add the following :
 
-- Add the keys for JWT
-- Keys for Cloudinary 
-- Etc
+- CLOUDINARY_URL = 'YOUR CLOUDINARY URL'
+- googlePassword = 'YOUR GOOGLE PASSSWORD'
+- googleUsername = ''YOUR GOOGLE EMAIL'
+- JwtSecret = 'JWT SECRETE KEY'
+- MONGO_URL = 'YOUR MONGO URL'
 
 -Usage 
 
@@ -78,15 +80,8 @@ Use the command to start the server on gitbash
 API Endpoints : 
 Available API endpoints, Requests methods, required parameters, and responses. 
 
-- Authentication :
--Post /auth/register : Register a new user 
--Post /auth/login  : Authenticate a user
-
-- Posts 
-
-- Profile 
-
-- Likes & Comments
+Refer to our api documentation for all endpoints 
+https://documenter.getpostman.com/view/30860117/2sAXjM5Ceh
 
 -Project Structure :
 
